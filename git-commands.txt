@@ -1,0 +1,101 @@
+Basic commands - fresh project
+------------------------------
+
+git init <new-proj>
+ls
+cd <new-proj>
+ls
+ls -al
+cd .git
+ls
+cd ..
+pwd
+git status
+notepad git-commands
+git status
+git add git-commands
+git status
+git commit
+git status
+cd ..
+pwd
+ls
+
+
+
+Add git to an existing project
+----------------------------
+
+http://initializr.com
+select bootstrap  -->  add all files
+download
+
+pwd
+cd projects
+unzip ~/Downloads/inia.....
+ls
+mv initializr web-project
+cd web-project
+pwd
+ls
+git init 
+ls -al
+git status
+git add .
+git status
+git commit -m "my first commit, inline"
+git status
+ls -la
+rm -rf .git
+ls
+cd ..
+rm -rf web-project
+
+
+Starting on github by joining an existing project(git clone)
+------------------------------------------------------
+https://github.com/scm-ninja/starter-web
+click fork button to create a copy in our personal space
+copy the url to clone in desktop
+pwd
+cd projects
+git clone <url>
+ls
+cd starter-web
+ls
+ls -al
+cd .git
+ls
+cd ..
+clear
+git status
+
+
+
+Basic git workflow (add, commit, pull, push)
+------------------------------------------
+https://github.com/scm-ninja/starter-web
+click fork button to create a copy in our personal space
+copy the url to clone in desktop
+pwd
+cd projects
+ls
+cd starter-web
+clear
+ls
+git status
+clear
+notepad <some-file-name>
+write something to the file
+save and close
+ls
+git status - 1 untracked file
+git add <some-file-name> - staging area of git
+git commit - commited and goes beyond staging area
+<my first commit>
+git status
+git pull origin master
+git push origin master - pushes from local repo to remote repo
+
+
+
