@@ -1,2 +1,2 @@
 # my-git-learning
-Git commands updated as i learn Git
+Git commands updated as I learn Git
