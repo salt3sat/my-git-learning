@@ -99,3 +99,27 @@ git push origin master - pushes from local repo to remote repo
 
 
 
+Tracked files
+--------------
+notepad ~/.gitconfig ( from git bash )
+Change the name and email with desired value
+save and close notepad
+pwd
+cd ~/projects
+ls
+cd starter-web/
+git status
+notepad <some-file-name>
+add some random content to the file
+close notepad
+git status
+git commit -am "adding more text and using add and commit in git together" ( keep in mind that this can be done only for tracked file )
+git ls-files ( gives the list of all traked files )
+notepad dummy.txt
+add some content and save, close the file
+git status
+git ls-files (the new file is not tracked)
+git add dummy.txt
+git status
+git ls-files (now the dummy file is tracked)
+
