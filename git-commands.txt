@@ -123,3 +123,1063 @@ git add dummy.txt
 git status
 git ls-files (now the dummy file is tracked)
 
+
+
+Editing files
+-------------
+pwd
+cd ~/projects/started-web
+ls
+vi hipster.txt
+add some content
+git status
+there is one added file from previos step and another file that we edited just now.
+One file is in the staging area and the other in the working directory.
+git commit -m "adding new file"
+git status
+git add hipster.txt
+git status
+notepad hipster.txt
+add some more content, save and close
+git status
+git add hipster.txt
+git status
+git commit -m "more text in hipster"
+git status
+
+
+
+Recursive add
+--------------
+pwd
+cd ~/projects/starter-web
+git status
+mkdir -p leve1/level2/level3/level5
+ls
+cd level1
+pwd
+notepad level1-file.txt
+add some content, save and close
+ls
+cd level2
+notepad level2-file.txt
+add some text, save and close
+ls
+cd level3
+notepad level3-file.txt
+add some more text, save and close
+cd ../../..
+ls
+got status
+git add .
+git status
+git commit
+"adding several files recursively"
+
+
+
+Backing out changes
+--------------------
+pwd
+cd ~/projects/starter-web
+ls
+git status
+cd level1
+ls
+notepad level1-file.txt
+add some text, save and close
+git status
+git add level1-file.txt
+git status
+notepad level1-file.txt
+"now i dont want the changes done in this step"
+git status
+git reset HEAD level1-file.txt
+git status
+notepad level1-file.txt
+git status
+git checkout -- level1-file.txt
+git status
+back to the clean working directory and the file in the last commited state
+
+
+
+Renaming and moving files
+--------------------------
+pwd
+cd ~/projects/starter-web
+ls
+cd level1/level2/level3
+pwd
+ls
+git status
+git mv level3-file.txt level3.txt
+ls
+git status
+git commit -m "renaming level3 file"
+
+cd ..
+ls
+mv level2-file.txt level2.txt
+ls
+git status
+git add -A 
+git status
+git commit -m "renaming level2 file"
+
+ls
+git mv level2.txt 2.txt
+ls
+git status
+git mv 2.txt level2.txt
+ls
+git status
+
+ls
+git mv level2.txt level3/
+ls
+cd level3
+ls
+git status
+cd ..
+git status
+git commit -m "moving file from level2 to level3"
+ls
+cd level3
+ls
+mv level2.txt ../
+ls
+git status
+cd ..
+pwd
+ls
+git status
+git add -A
+git status
+git commit -m "moving level2 file back to level2 dir"
+git status
+cd ..
+pwd
+use file manager to rename the file in level1 dir - level1-file.txt to level1.txt
+ls
+git status
+git add level1.txt
+git add -u
+git status
+git commit -m "renaming level1 file"
+
+
+
+Deleting files
+---------------
+cd ~/projects/starter-web
+ls
+git status
+notepad helloyou.txt
+save and close
+ls
+git status
+
+delete file that is not being tracked by git
+git rm helloyou.txt (throws an error)
+rm helloyou.txt (works)
+ls
+git status
+
+git ls-files (newfile.txt is being tracked)
+ls
+git rm newfile.txt
+git status
+git commit -m "Deleting new file"
+git status
+
+ls
+git ls-files
+git rm hipster.txt
+ls
+git status
+git reset HEAD hipster.txt
+ls
+git status
+git checkout -- hipster.txt (back out)
+ls
+git status
+
+ls
+rm hipster.txt
+ls
+git status
+git add -A
+git status
+git commit -m "deleted hispter.txt"
+
+ls
+rm -rf level1
+ls
+git status
+git add -A
+git status
+git commit -m "deleting level1 and all children"
+git status
+
+
+
+History
+--------
+pwd
+git help log
+cd ~/projects/starter-web
+git log
+git log --abbrev-commit
+git log --oneline --graph --decorate
+git log ae6f872...761b911
+git log --since="3 days ago"
+ls
+git log -- hipster.txt
+git log --follow -- level1/level2/level2.txt
+git show <id>
+
+
+git alias
+----------
+pwd
+cd ~/projects/starter-web
+ls
+git status
+git log --all --graph --decorate --oneline
+git hist
+git config --global alias.hist "log --all --graph --decorate --online"
+git hist
+notepad ~/.gitconfig
+
+
+Ignoring unwanted files and folders
+-----------------------------------
+pwd
+cd ~/projects/starter-web
+ls
+git status
+ls -al
+notepad .gitignore
+add ".DS_Store", save and close
+got status
+git add .gitignore
+got status
+git commit -m "adding git ignore file to exclude unwanted files"
+git status
+
+ls
+notepad access.log
+add below
+"/index.html 200
+/something.html 404
+/hackattempt.php 500"
+save and close
+ls
+git status
+notepad .gitignore
+add "*.log"
+save and close
+git status
+
+mkdir log
+mv access.log lls
+cd log
+cp access.log access.2020-12-12.log
+ls
+git status
+notepad .gitignore
+add "log/"
+save and close
+git status
+git commit -am "Excluding log file dir"
+git status
+
+
+Cleanup and back to origin
+---------------------------
+pwd
+cd ~/projects/starter-web
+ls
+git status
+git pull origin master
+git push origin master
+
+
+Visual Diff/Merge tool setup
+----------------------------
+P4Merge for windows
+Git configuration
+www.perforce.com
+download p4merge visual merge tool
+deselect all programs except the visual merge tool
+
+add p4merge tool abs path to the ENV variable in windows
+
+
+P4merge for windows git configuration (diff and merge tool)
+--------------------------------------
+open git bash
+git config --global merge.tool p4merge
+git config --global mergetool.p4merge.path "c:/Program Files/Perforce/p4merge.exe"
+git config --global mergetool.prompt false
+
+git config --global diff.tool p4merge
+git config --global difftool.p4merge.path "C:/Program Files/Perforce/p4merge.exe"
+git config --global difftool.prompt false
+git config --global --list
+git config --global -e
+
+
+
+Comparison scenarios
+--------------------
+pwd
+cd ~/projects/starter-web
+ls
+notepad README.md
+add below lines
+#Starter Web Project
+##Into
+##Purpose
+##How to contribute
+save and close
+git status
+git add README.md
+git status
+git commit -m "Adding README file"
+git push origin master
+notepad README.md
+add below
+##Deployment
+save and close
+git status
+git commit -am "Adding new section:deployment"
+git status
+git push origin master
+notepad README.md
+add below
+Adding more and more content to the file
+save and close
+git status
+git commit -am "Adding intro text"
+notepad README.md
+add below
+Adding more and more and more content to the file
+save and close
+git status
+git add README.md
+git status
+notepad README.md
+add below
+Adding more and more and more content to the file
+save and close
+git status
+
+
+
+Comparing work dir and staging area
+-----------------------------------
+pwd
+git status
+git diff
+git difftool
+
+
+
+Comparing working dir and git repo
+----------------------------------
+git status
+git diff HEAD
+git difftool HEAD
+
+
+comparing staging area and git repo
+-----------------------------------
+git diff --staged HEAD
+git difftool --staged HEAD
+
+
+
+Limiting comparison to one file or path
+---------------------------------------
+ls
+notepax simple.html
+make modifications
+git status
+git diff
+git diff -- README.md
+git difftool -- README.md
+
+
+Comparing between commits
+--------------------------
+git log --oneline
+git diff ae6f872 HEAD
+git diff HEAD HEAD^
+git difftool HEAD HEAD^
+git log --oneline
+git diff 22c289a b196780
+git difftool 22c289a b196780
+
+
+Comparing between local and remote master branches
+--------------------------------------------------
+git diff master origin/master
+git difftool master origin/master
+
+
+
+Cleanup
+-------
+pwd
+git status
+git add .
+git status
+git commit -m "updating repo with changes from compare section"
+git pull
+git push origin master
+
+
+
+Branching basics
+----------------
+pwd
+cd ~/projects/starter-web
+git status
+git branch -a
+git branch mynewbranch
+git branch -a
+git checkout mynewbranch
+git branch -a
+git log --oneline --decorate
+git checkout master
+git branch -m mynewbranch newbranch
+git branch -a
+git branch -d newbranch
+git branch -a
+
+
+happy path/fast forward merges
+------------------------------
+pwd
+cd ~/projects/starter-web
+git status
+git branch
+git branch -a
+git checkout -b title-change
+git status
+notepad simpel.html
+mke some changes
+git status
+git commit -am "changing title of html file"
+git log --oneline
+git checkout master
+git diff master title-change
+git difftool master title-change
+git merge title-change
+git log --oneline --grph --decorate
+git branch
+git branch -d title-change
+git branch
+git log --oneline --graph --decorate
+
+
+
+Happy path/disable fast forward merges
+--------------------------------------
+pwd
+git status
+git branch
+git checkout -b add-copyright
+git branch
+notepad simple.html
+add a copyright notice, save and close
+git status
+git commit -am "ading compyright notice"
+notepad README.md
+add a copyright notice, save and quit
+git commit -am "adding copyright notice to readme"
+git log --oneline --graph --decorate
+git checkout master
+git merge add-copyright --no-ff
+git log --oneline --graph --decorate
+git branch -d add-copyright
+git log --oneline --graph --decorate
+
+
+
+automatic merges
+----------------
+pwd
+git status
+git branch
+git checkout -b simple-changes
+ll
+notepad humans.txt
+add some text, save and close
+git status
+git commit -am "adding team mem to humans.txt"
+git checkout master
+ls
+notepad README.md
+add some text
+git status
+git commit -am "adding instructions on how to contribute"
+git log --oneline --graph --decorate --all
+git branch
+git merge simple-changes -m "Merging changes from simple-changes"
+git log --oneline --graph --decorate --all
+git branch -d simple-changes
+notepad humans.txt
+notepad README.md
+
+
+Conflicting merge and resolution
+--------------------------------
+pwd
+git status
+git branch
+git checkout -b realwork
+notepad simple.html
+"add some text, save and close
+git status
+git commit -am "Making changes to simple.html"
+git status
+git checkout master
+notepad simple.html
+"additional changes 'a very respectful website, not sure where it will go from here", save and close
+git status
+git add simple.html
+git commit
+"adding conflicting changes in purpose"
+git log --oneline --graph --decorate --all
+git branch
+git diff master realwork
+git difftool master realwork
+git merge realwork
+ls
+notepad simple.html
+git mergetool
+git commit -m "done resolving merge conflicts"
+git status
+notepad .gitignore
+add *.orig to the file and save, close
+git status
+git add .gitignore
+git commit -m "updating ignore file to exclude temp files"
+git branch
+git branch -d realwork
+git log --online --graph --decorate --all
+
+
+
+Dession cleanup and push back to git
+------------------------------------
+pwd
+git status
+git branch
+git pull origin master
+git push origin master
+git status
+
+
+Rebasing basic
+---------------
+pwd
+cd ~/projects/starter-web
+pwd
+ls
+git status
+git checkout -b myfeature
+notepad humans.txt
+add some content
+git status
+git commit -am "Saying thanks to students"
+git checkout master
+notepad README.md
+add some line
+git status
+git commit -am "Adding onliner to README for rebase example"
+git log --oneline --decorate --all --graph
+git checkout myfeature
+git rebase master
+git log --oneline --decorate --all --graph
+notepad README.md
+make some changes
+git status
+git commit -am "Adding another change after rabase"
+git log --oneline --decorate --all --graph
+git checkout master
+notepad README.md
+git status
+git diff master myfeature
+git merge myfeature
+git log --oneline --decorate --all --graph
+git branch -d myfeature
+git branch
+
+
+
+Rebasing conflict
+-----------------
+pwd
+git status
+ls
+notepad simple.html
+add some line
+git commit -am "mb before rebase conflicts"
+git checkout -b bigtrouble
+notepad simple.html
+add several changes
+git commit -am "fb adding some trouble to simple.html"
+git checout master
+notepad simple.html
+make some more changes
+git commit -am "mb conflicting changes brewing"
+git status
+git log --oneline --graph --decorate --all
+
+
+Abort a rebase
+--------------
+pwd
+git status
+git branch
+git checkout bigtrouble
+git branch
+git difftool master bigtrouble
+git rebase master
+git rebase --abort
+git status
+git log --oneline --graph --decorate --all
+
+
+Rebase conflict and resolution
+------------------------------
+pwd
+git status (on branch bigtrouble)
+git log --oneline --graph --decorate --all
+git rebase master
+git mergetool 
+git status
+git add simple.html
+git status
+git rebase --continue
+git log --oneline --graph --decorate --all
+notepad simple.html
+add lots of trouble
+git commit -am "adding changes after rebasinf conflict
+git status
+git log --oneline --graph --decorate --all
+git checkout master
+git merge bigtrouble
+git log --oneline --graph --decorate --all
+
+
+
+Pull and rebase
+----------------
+pwd
+git status
+git pull origin master
+git push origin master
+git status
+notepad simple.html
+edit the copyright notice
+get commit -am "local: updating simple.html copyright notice"
+git status
+goto github and modify index.html and commit
+remote:minor change to index.html file
+git status
+git fetch origin master
+git status
+git pull --rebase origin master
+git status
+git log --oneline --graph --decorate -all
+
+
+
+Section cleanup and push to github
+----------------------------------
+pwd
+git status
+git branch
+git branch -d bigtrouble
+git branch
+git pull origin master
+git status
+git push origin master
+
+
+
+Stash example
+-------------
+pwd
+cd ~/projects/starter-web
+pwd
+git status
+ls
+notepad simple.html
+add text updaing title for stash example
+git status
+git stash
+git status
+notepad simple.html
+ls
+notepad README.md
+add all rights reserved
+git status
+git commit -am "quick fix in prod"
+git status
+git stash apply
+git status
+notepad simple.html
+add more lines/changes
+git commit -am "done with simple.html updates"
+git status
+git stash list
+git stash drop
+
+
+Stashing untracked files and using pop
+--------------------------------------
+pwd
+git status
+git ls-files
+notepad humans.txt
+add some extra text
+git status
+notepad anewfile.txt
+put some content
+git status
+git stash
+git status
+git stash apply
+git stach drop
+git stash list
+git stash -u
+git status
+git stash list
+notepad README.md
+do some changes
+git commit -a
+add some text
+git status
+git stash pop (apply and drop)
+git status
+rm anewfile.txt
+git status
+git commit -am "updates to humans file after stash pop"
+git status 
+
+
+Managing multiple stashes
+-------------------------
+pwd
+git status
+ls
+notepad simple.html
+update some line
+git stash save "simple changes"
+notepad index.html
+edit some line
+git stash save "index changes"
+notepad README.md
+edit some line
+git stash save "readme changes"
+git stash list
+git stash show stash@{1}
+git status
+git stash list
+git stash apply stash@{1}
+git status
+git stash list
+git stash drop stash!{1}
+git stash list
+git stash list
+git stash clear
+git stash list
+
+
+
+Stashing into a branch
+----------------------
+pwd
+git status
+git stash list
+notepad simple.html
+update any line
+notepad humans.txt
+update some line
+notepad index.html
+exit some line
+git status
+git add index.html
+git status
+notepad new.md
+add some random contents
+git status
+git stash -u
+git status
+git stash branch newchanges
+git stash list
+git status
+rm new.md
+git add .
+git commit
+add a commit message
+git checkout master
+git merge newchanges
+git branch -d newchanges
+git branch
+
+
+
+
+section cleanup and push to github
+----------------------------------
+pwd
+git status
+git pull origin master
+git push origin master
+
+
+Simple tag examples  - lightweight tag
+-------------------
+pwd
+cd ~/projects/starter-web
+git status
+git log --oneline --decorate --graph --all
+git tag myTag
+git log --oneline --decorate --graph --all
+git tag --list
+git show myTag
+git tag --delete myTag
+git tag --list
+git log --oneline --decorate -- graph --all
+
+
+
+Annotated tag
+-------------
+pwd
+git status
+git tag -a v-1.0 
+add Release 1.0
+git tag --list
+git log --oneline --graph --decorate --all
+git show v-1.0
+
+
+
+Comparing tags
+--------------
+git status
+git tag --list
+ls
+notepad index.html
+add some text
+git commit
+add some commit message
+git log --oneline --decorate --graph --all
+git tag -a v-1.1
+add some text
+notepad simple.html
+add some text
+git commit -am "updating tag 1.1"
+git commit --amend
+add some text
+git tag v-1.2 -m "Release 1.2"
+git tag --list
+git log --oneline --decorate --graph --all
+git diff v-1.0 v-1.2
+git difftool v-1.0 v-1.2
+
+
+Tagging a specific commit
+-------------------------
+pwd
+git status
+git log --oneline --graph --decorate --all
+git tag -a v-0.9-beta 96ef75b
+add a tag message
+git tag -a v-0.8-alpha ab0d621
+add a tag message
+
+
+Updating an existing tag
+------------------------
+git status
+git log --oneline --graph --decorate --all
+git tag -a v-0.8-alpha -f bd35dgh
+add some tag message
+git log --oneline --decorate --graph --all
+
+
+
+remote tagging - in github
+-----------------------
+pwd
+git status
+git tag --list
+git log --oneline --decorate --graph --all
+git push origin v-0.9-beta
+git push origin v-1.1
+git push origin master --tags
+git tag --list
+git push origin :v-0.8-alpha
+
+
+
+
+Reset and reflog
+-----------------
+pwd
+cd ~/projects/training
+cd words
+git log --oneline
+git log --oneline --graph --decorate --all
+git reset HEAD^1
+git log --oneline --graph --decorate --all
+git reset HEAD^
+git log --oneline --graph --decorate --all
+git reser HEAD^1
+git log --oneline --graph --decorate --all
+git reflog
+git reset e393216
+git log --oneline --graph --decorate --all
+
+git reset HEAD@{2}
+git log --oneline --graph --decorate --all
+git reset e393216
+git log --oneline --graph --decorate --all
+git reset HEAD^^
+git log --oneline --graph --decorate --all
+git reset e393216
+git log --oneline --graph --decorate --all
+soft and hard reset
+-------------------
+git reset HEAD@{3}
+git log --oneline --graph --decorate --all
+git reflog
+git reset e393216
+git log --oneline --graph --decorate --all
+
+
+
+Compare branches via github
+---------------------------
+
+
+Compare branches via commandline
+--------------------------------
+git clone https://github.com/salt3sat/containers.git
+ls
+cd containers/
+git branch -a
+git pul
+git pull
+git pull origin master
+git pull origin main
+git branch -a
+git fetch origin test-branch
+git pull
+git branch -a
+git fetch origin test-branch
+git branch test origin/test-branch
+bit checkout test
+git checkout test
+git pull
+git diff main test
+git branch -a
+git checkout master
+git checkout main
+git branch -a
+git branch -d test
+git branch -a
+git branch -D test
+git branch -a
+
+
+
+Stash vs Branch
+---------------
+git status
+notepad
+ls
+notepad README.md
+make some changes, save and quit
+git status
+git ls-files
+git stash 
+git config --global user.name "training"
+git config --global user.email "training@training"
+git stash
+git checkout -b test
+git stash pop
+git stash list
+git checkout master
+notepad pom.xml
+add something random
+git status
+git stash
+git status
+ls
+notepad LICENSE
+make some changes
+git status
+git stash
+git stash list
+git stash apply stash@{1}
+git stash list
+git stash clear
+git stash list
+git status
+
+
+
+gitting help
+------------
+git help stash
+
+
+Cherry Pick
+-----------
+Cherry pick used if we have 2 branches - master and devel, we decide there is a hot fix and we need to pick that commit from master, make the changes/hot fix in devel branch and put it into master from the devel branch. in this case we can cherry pick to just bring one single commit down to wherever we need to go.
+
+git status
+git commit -am "express commit"
+git checkout -b devel
+git status
+ls
+cd web
+notepad pom.xml
+make some changes
+git commit -am "cherry pick commit"
+cd ..
+cd core/
+notepad pom.xml
+make some changes
+this is not gonna be cherry picked
+git commit -am "non-cherry picked commit"
+git log --oneline
+git checkout main
+pwd
+cd ..
+cd web
+notepad pom.xml
+changes are gone
+git status
+git log --oneline --all --decorate --graph
+pwd
+cd ..
+notepad pom.xml
+change content
+git commit -am "updated away from develop"
+git log --oneline --all --graph
+git cherry-pick 1c82df6
+git status
+cd web
+notepad pom.xml
+check the content "cherry pick me" content is there
